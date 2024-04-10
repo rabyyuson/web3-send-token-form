@@ -2,6 +2,8 @@
 
 import SendTokenForm from "@/components/send-token-form/send-token-form";
 import { SendData } from "@/lib/types";
+import Connect from "@/components/connect";
+import Home from "@/components/home";
 
 export default async function Page() {
   async function handleOnFormSubmit({ sendToAddress, sendToAmount }: SendData) {
@@ -12,7 +14,8 @@ export default async function Page() {
 
   return (
     <div>
-      <w3m-button />
+      <Connect />
+      <Home />
       <SendTokenForm onFormSubmit={handleOnFormSubmit} />
     </div>
   );
