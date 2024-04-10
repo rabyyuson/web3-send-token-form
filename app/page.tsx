@@ -12,6 +12,7 @@ export default async function Page() {
 
   return (
     <div>
+      <w3m-button />
       <SendTokenForm onFormSubmit={handleOnFormSubmit} />
     </div>
   );
