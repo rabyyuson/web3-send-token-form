@@ -45,19 +45,19 @@ export default function Home() {
           onSendTransaction={handleSendTransaction}
         />
       )}
-      {isConfirming && (
+      {address && isConfirming && (
         <Notice
           message="Waiting for confirmation..."
         />
       )}
-      {isConfirmed && (
+      {address && isConfirmed && (
         <Success
           message="Transaction confirmed."
           hash={hash}
           blockExplorerUrl={chain?.blockExplorers?.default?.url}
         />
       )}
-      {error && (
+      {address && error && (
         <Error
           error={(error as BaseError).shortMessage || error.message}
         />
