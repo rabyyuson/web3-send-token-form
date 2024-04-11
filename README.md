@@ -1,3 +1,9 @@
+## Summary
+
+The project makes use of the [Next.js](https://nextjs.org/) framework to define a solid code base which offers a lot of out of the box features including routing, react/typescript/tailwind/jest support, and others. It also utilizes [wagmi](https://wagmi.sh/) to allow easy development of blockchain applications.
+
+The application flow is as follows. First the user is given a button to connect to a wallet. Once successfully connected, the user can then perform sending of ERC-20 token through the Avalanche Fuji C-Chain (testnet) network and displaying of the results whether it fails, is in process, or successfully performs the transaction.
+
 ## Getting Started
 
 You will first need to [create a new project](https://cloud.walletconnect.com/) in wallet connect and then copy the *project id*. Once you have the *project id*, create a `.env` file and add the following:
