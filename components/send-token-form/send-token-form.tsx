@@ -1,7 +1,6 @@
 "use client";
 
-import React from "react";
-import clsx from "clsx";
+import { FormEvent } from "react";
 import Spinner from "@/components/icons/spinner";
 
 export default function SendTokenForm({
@@ -19,19 +18,18 @@ export default function SendTokenForm({
       <div className="flex flex-col items-center w-full justify-center">
         <form
           className="md:w-[400px]"
-          onSubmit={(event: React.FormEvent<HTMLFormElement>) => {
+          onSubmit={(event: FormEvent<HTMLFormElement>) => {
             event.preventDefault();
 
-            const formData = new FormData(event.target as HTMLFormElement) 
-
+            const formData = new FormData(event.currentTarget); 
             onSendTransaction(formData);
           }}
         >
           <div>
               <div>
-                <label className="text-white text-sm font-bold">
+                <span className="text-white text-sm font-bold">
                   Send To
-                </label>
+                </span>
               </div>
               <div className="mt-1">
                 <input
@@ -46,9 +44,9 @@ export default function SendTokenForm({
           <div>
             <div className="flex flex-col md:flex-row justify-between">
               <div>
-                <label className="text-white text-sm font-bold">
+                <span className="text-white text-sm font-bold">
                   Amount
-                </label>
+                </span>
               </div>
               <div>
                 <span className="text-xs text-[#bdbdbd]">Balance: {balance?.data?.formatted} {balance?.data?.symbol}</span>
