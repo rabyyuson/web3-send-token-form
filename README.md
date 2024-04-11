@@ -1,4 +1,4 @@
-## Prerequisites
+## Getting Started
 
 You will first need to [create a new project](https://cloud.walletconnect.com/) in wallet connect and then copy the *project id*. Once you have the *project id*, create a `.env` file and add the following:
 
@@ -18,12 +18,16 @@ Finally, start the application:
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+
+## Testing
+
+To run the test, issue the following command:
+
+```bash
+npm run test
+```
+
+It will run the test defined within the `__tests__` folder.
