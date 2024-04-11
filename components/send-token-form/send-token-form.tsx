@@ -2,6 +2,7 @@
 
 import React from "react";
 import clsx from "clsx";
+import Spinner from "@/components/icons/spinner";
 
 export default function SendTokenForm({
   balance,
@@ -17,7 +18,7 @@ export default function SendTokenForm({
     <div className="mt-5 bg-[#1a1a1a] rounded-lg p-10">
       <div className="flex flex-col items-center w-full justify-center">
         <form
-          className="w-[400px]"
+          className="md:w-[400px]"
           onSubmit={(event: React.FormEvent<HTMLFormElement>) => {
             event.preventDefault();
 
@@ -43,7 +44,7 @@ export default function SendTokenForm({
               </div>
           </div>
           <div>
-            <div className="flex flex-row justify-between">
+            <div className="flex flex-col md:flex-row justify-between">
               <div>
                 <label className="text-white text-sm font-bold">
                   Amount
@@ -67,14 +68,20 @@ export default function SendTokenForm({
           <div className="mt-2">
             <button
               disabled={isTransactionProcessing}
-              className={clsx(
-                "w-full rounded-md py-2 px-4 bg-slate-100 border text-black",
-                {
-                  "text-slate-400": isTransactionProcessing,
-                }
-              )}
+              className="w-full rounded-md py-2 px-4 bg-purple-500 text-white"
             >
-              {isTransactionProcessing ? "Processing..." : `Send ${balance?.data?.symbol}`}
+              {isTransactionProcessing
+                ? (
+                  <>
+                    <span className="flex flex-row items-center justify-center">
+                      <Spinner />
+                      {" "}
+                      Processing...
+                    </span>
+                  </>
+                )
+                : `Send ${balance?.data?.symbol}`
+              }
             </button>
           </div>
         </form>

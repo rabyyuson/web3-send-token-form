@@ -1,6 +1,5 @@
 "use client";
 
-import { useState } from "react";
 import SendTokenForm from "@/components/send-token-form/send-token-form";
 import {
   type BaseError,
@@ -15,9 +14,7 @@ import Notice from "@/components/send-token-form/notice";
 import Success from "@/components/send-token-form/success";
 
 export default function Home() {
-  const [isDismissed, setIsDismissed] = useState(false);
-
-  const { address } = useAccount();
+  const { address, chain } = useAccount();
   const balance = useBalance({ address });
 
   const {
@@ -37,11 +34,6 @@ export default function Home() {
     const amount = formData.get("amount") as string;
 
     sendTransaction({ to, value: parseEther(amount) });
-    setIsDismissed(false);
-  }
-
-  function handleDismissClick() {
-    setIsDismissed(true);
   }
 
   return (
@@ -53,22 +45,20 @@ export default function Home() {
           onSendTransaction={handleSendTransaction}
         />
       )}
-      {isConfirming && !isDismissed && (
+      {isConfirming && (
         <Notice
-          onDismissClick={handleDismissClick}
           message="Waiting for confirmation..."
         />
       )}
-      {isConfirmed && !isDismissed && (
+      {isConfirmed && (
         <Success
-          onDismissClick={handleDismissClick}
           message="Transaction confirmed."
           hash={hash}
+          blockExplorerUrl={chain?.blockExplorers?.default?.url}
         />
       )}
-      {error && !isDismissed && (
+      {error && (
         <Error
-          onDismissClick={handleDismissClick}
           error={(error as BaseError).shortMessage || error.message}
         />
       )}
