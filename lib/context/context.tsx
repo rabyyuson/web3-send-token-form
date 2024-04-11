@@ -16,8 +16,6 @@ if (!projectId) {
 createWeb3Modal({
   wagmiConfig: config,
   projectId,
-  featuredWalletIds: [],
-  allWallets: "HIDE",
 });
 
 export default function Web3ModalProvider({
