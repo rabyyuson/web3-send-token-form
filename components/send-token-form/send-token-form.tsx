@@ -1,67 +1,84 @@
 "use client";
 
-import { useState } from "react";
-import { SendData } from "@/lib/types";
+import React from "react";
+import clsx from "clsx";
 
 export default function SendTokenForm({
-    onFormSubmit,
+  balance,
+  isTransactionProcessing,
+  onSendTransaction,
 }: {
-    onFormSubmit: ({ sendToAddress, sendToAmount }: SendData) => void;
+  balance: any;
+  isTransactionProcessing: boolean;
+  onSendTransaction: (formData: FormData) => void;
 }) {
-  const [sendToAddress, setSendToAddress] = useState("");
-  const [sendToAmount, setSendToAmount] = useState("");
 
   return (
-    <div className="flex flex-col items-center w-full justify-center">
-      <form
-        className="w-[400px]"
-        onSubmit={(event) => {
-          event.preventDefault();
+    <div className="mt-5 bg-[#1a1a1a] rounded-lg p-10">
+      <div className="flex flex-col items-center w-full justify-center">
+        <form
+          className="w-[400px]"
+          onSubmit={(event: React.FormEvent<HTMLFormElement>) => {
+            event.preventDefault();
 
-          onFormSubmit({ sendToAddress, sendToAmount });
-        }}
-      >
-        <div>
-            <div>
-              <label className="text-white text-sm font-bold">
-                Send To
-              </label>
-            </div>
-            <div>
-              <input
-                type="text"
-                value={sendToAddress}
-                onChange={(event) => { setSendToAddress(event.target.value) }}
-                placeholder="Enter 0x address"
-                className="w-full border rounded-md bg-transparent py-2 px-2 mb-5 text-sm text-white"
-              />
-            </div>
-        </div>
-        <div>
-          <div className="flex flex-row justify-between">
-            <div>
-              <label className="text-white text-sm font-bold">
-                Amount
-              </label>
-            </div>
-            <div>
-              <span className="text-white text-sm">Balance: 1 USDC</span>
-            </div>
+            const formData = new FormData(event.target as HTMLFormElement) 
+
+            onSendTransaction(formData);
+          }}
+        >
+          <div>
+              <div>
+                <label className="text-white text-sm font-bold">
+                  Send To
+                </label>
+              </div>
+              <div className="mt-1">
+                <input
+                  type="text"
+                  name="address"
+                  placeholder="Enter 0x address"
+                  required
+                  className="w-full bg-[#262626] rounded-md py-3 px-4 mb-5 text-sm text-white"
+                />
+              </div>
           </div>
           <div>
-            <input
-              type="number"
-              value={sendToAmount}
-              onChange={(event) => { setSendToAmount(event.target.value) }}
-              placeholder="0.0"
-              className="w-full border rounded-md bg-transparent mb-5 py-2 px-2 text-sm text-white"
-            />
+            <div className="flex flex-row justify-between">
+              <div>
+                <label className="text-white text-sm font-bold">
+                  Amount
+                </label>
+              </div>
+              <div>
+                <span className="text-xs text-[#bdbdbd]">Balance: {balance?.data?.formatted} {balance?.data?.symbol}</span>
+              </div>
+            </div>
+            <div className="mt-1">
+              <input
+                type="number"
+                name="amount"
+                min="0.01"
+                placeholder="0.01"
+                required
+                className="w-full bg-[#262626] rounded-md py-3 px-4 mb-5 text-sm text-white"
+              />
+            </div>
           </div>
-        </div>
-        <button className="w-full bg-white border rounded-md py-2 px-4 text-black hover:bg-slate-200">
-          Send USDC
-        </button>
-      </form>
+          <div className="mt-2">
+            <button
+              disabled={isTransactionProcessing}
+              className={clsx(
+                "w-full rounded-md py-2 px-4 bg-slate-100 border text-black",
+                {
+                  "text-slate-400": isTransactionProcessing,
+                }
+              )}
+            >
+              {isTransactionProcessing ? "Processing..." : `Send ${balance?.data?.symbol}`}
+            </button>
+          </div>
+        </form>
+      </div>
     </div>
   );
 }

@@ -4,6 +4,7 @@ import Web3ModalProvider from "@/lib/context/context";
 import { headers } from "next/headers";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
+import clsx from "clsx";
 import "./globals.css";
 
 const inter = Inter({ subsets: ["latin"] });
@@ -21,7 +22,10 @@ export default function RootLayout({
   const initialState = cookieToInitialState(config, headers().get('cookie'));
   return (
     <html lang="en">
-      <body className={inter.className}>
+      <body className={clsx(
+        inter.className,
+        "container mx-auto"
+      )}>
         <Web3ModalProvider initialState={initialState}>
           {children}
         </Web3ModalProvider>

@@ -1,19 +1,53 @@
 "use client";
 
-import { useAccount } from "wagmi";
+import SendTokenForm from "@/components/send-token-form/send-token-form";
+import {
+  type BaseError,
+  useAccount,
+  useBalance,
+  useSendTransaction,
+  useWaitForTransactionReceipt,
+} from "wagmi";
+import { parseEther } from "viem";
+import Error from "@/components/send-token-form/error";
+import Notice from "@/components/send-token-form/notice";
+import Success from "@/components/send-token-form/success";
 
 export default function Home() {
-    const {
-        address,
-        isConnecting,
-        isDisconnected,
-    } = useAccount();
- 
-    return (
-        <div>
-            {isConnecting && "Connecting..."}
-            {isDisconnected && "Disconnected..."}
-            {address && address}
-        </div>
-    );
+  const { address } = useAccount();
+  const balance = useBalance({ address });
+
+  const {
+    data: hash,
+    error,
+    isPending,
+    sendTransaction,
+  } = useSendTransaction();
+
+  const {
+    isLoading: isConfirming,
+    isSuccess: isConfirmed,
+  } = useWaitForTransactionReceipt({ hash });
+
+  function handleSendTransaction(formData: FormData) {
+    const to = formData.get("address") as `0x${string}`;
+    const amount = formData.get("amount") as string;
+
+    sendTransaction({ to, value: parseEther(amount) });
+  }
+
+  return (
+    <div>
+      {address && (
+        <SendTokenForm
+          balance={balance}
+          isTransactionProcessing={isPending}
+          onSendTransaction={handleSendTransaction}
+        />
+      )}
+      {isConfirming && (<Notice message="Waiting for confirmation..." />)}
+      {isConfirmed && (<Success message="Transaction confirmed." hash={hash} />)}
+      {error && (<Error error={(error as BaseError).shortMessage || error.message} />)}
+    </div>
+  );
 }
