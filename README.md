@@ -6,13 +6,16 @@ The application flow is as follows. First the user is given a button to connect 
 
 ## Getting Started
 
-You will first need to [create a new project](https://cloud.walletconnect.com/) in wallet connect and then copy the *project id*. Once you have the *project id*, create a `.env` file and add the following:
+Install [Core Extension](https://chromewebstore.google.com/detail/core-crypto-wallet-nft-ex/agoakfejjabomempkjlepdflaleeobhb) then add Avalanche Fuji C-Chain network. Add the USDC asset and acquire USDC in
+your testnet account via the [Testnet Faucet](https://test.core.app/tools/testnet-faucet/?subnet=c&token=usdcc). Also grab some [AVAX from the faucet](https://test.core.app/tools/testnet-faucet/?subnet=c&token=c) to pay for transaction fees.
+
+You will need to [create a new project](https://cloud.walletconnect.com/) in *Wallet Connect* and then copy + paste the generated *project id* to a new `.env` file:
 
 ```bash
 NEXT_PUBLIC_PROJECT_ID=<YOUR_WALLET_CONNECT_PROJECT_ID>
 ```
 
-Next, clone the repo and install the dependencies:
+Clone the repo and install the dependencies:
 
 ```bash
 git clone https://github.com/rabyyuson/web3-send-token-form.git
@@ -20,7 +23,7 @@ cd web3-send-token-form
 npm install
 ```
 
-Finally, start the application:
+Start the application:
 
 ```bash
 npm run dev

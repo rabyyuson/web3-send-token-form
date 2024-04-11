@@ -9,7 +9,7 @@ export default function Error({
 }) {
   const [isDismissed, setIsDismissed] = useState(false);
   return !isDismissed && (
-    <div className="relative rounded-lg mt-5 justify-center items-center text-sm text-white p-5 bg-yellow-600 flex flex-row gap-2">
+    <div className="relative rounded-lg mt-5 justify-center items-center text-sm text-white p-5 bg-orange-600 flex flex-row gap-2">
       <Dismiss onDismissClick={() => { setIsDismissed(true) }} />
       <Information />
       {" "}
